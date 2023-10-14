@@ -29,6 +29,7 @@ stage ('Deploy') {
 steps {
 sh '''#!/bin/bash
 echo "command to run the setup.sh"
+ssh -T ubuntu@10.0.2.90 </var/lib/jenkins/workspace/Deployment5_main/setup.sh
 '''
 }
 }
