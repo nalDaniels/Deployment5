@@ -5,6 +5,7 @@ pipeline {
       steps {
         sh '''#!/bin/bash
         echo "command to run the pkill.sh"
+        ssh -T ubuntu@10.0.2.90 </var/lib/jenkins/workspace/Deployment5_main/pkill.sh 
         '''
      }
    }
@@ -12,6 +13,7 @@ pipeline {
   steps {
      sh '''#!/bin/bash
      echo "command to run the setup2.sh"
+     ssh -T ubuntu@10.0.2.90 </var/lib/jenkins/workspace/Deployment5_main/setup2.sh 
     '''
       }
     }
