@@ -10,8 +10,14 @@ I created the network infrastructure including a vpc, 2 public subnets, 2 securi
 It is important to be aware that creating a VPC creates a default route table. To configure the default route table, you have to use that particular resource instead of the route table resource. This avoids creating an additional resource instead of just editing what has already been created.
 
 ### Issues:
-When I set up my security group for the Jenkins server to be open on port 8080, I was unable to connect to my instance. The IP address on port 8080 led to Jenkins, 
-but the actual instance was unaccessible. I resolved this by opening up port 22. I assume this worked because EC2 connect creates an ssh connection to access the IP address' terminal. 
+When I set up my security group for the Jenkins server to be open on port 8080, I was unable to connect to my instance. The IP address on port 8080 led to Jenkins, but the actual instance was unaccessible. I resolved this by opening up port 22. I assume this worked because EC2 connect creates an ssh connection to access the IP address' terminal. 
+
+### Optimization:
+To improve this deployment, I would place the Jenkins server in a private subnet. This would add additional levels of security for the application code and files Jenkins clones from our repository. Therefore, the Jenkins server can only be accessed via EC2 connect points or bastion hosts rather than the internet. 
+
+Since the application appears to be an internal company facing application instead of customer facing, so I would advise placing the application in a private subnet. Furthermore, the application holds sensitive information about customers and accounts, so using a private subnet would make the application more secure and protect it from hacking by only enabling authorized users access to the app.
+
+The public subnets are still necessary as they will have the NAT gateway, which allows the applications in the private subnet to route traffic outside of the VPC. 
 
 ## 2. Use The Jenkins User
 ### Purpose: 
@@ -48,7 +54,7 @@ The deploy stage ssh'd into the second server and successfully deployed the reta
 <img width="1215" alt="Screen Shot 2023-10-14 at 1 15 54 AM" src="https://github.com/nalDaniels/Deployment5/assets/135375665/965d63b0-345f-4c4b-809e-1eebf19c8d10">
 
 ### Deployment Script
-In the script a python virtual environment was created and activated and the repository was cloned onto the second EC2 instance. Within the application files directory, pip installed the packages necessary to deploy the application and gunicorn. Then, it ran the database.py and load_data.py files, which created an SQLite database and populated it with account information.
+In the script a python virtual environment was created and activated and the repository was cloned onto the second EC2 instance. Within the application files directory, pip installed the packages necessary to deploy the application and gunicorn. Then, it ran the database.py and load_data.py files, which created an SQLite database and populated it with account information. Finally, it started the gunicorn server.
 
 ### Issues
 Initially, I was unable to get my setup.sh script to run. After looking at the logs, I realized that python3-pip needed to be installed to download the packages necessary to deploy the application be sure the install python3-pip.
@@ -64,9 +70,23 @@ git switch main
 git merge second
 git push
 
-I change the configuration to point to jenkinsfilev2 and reran the build. 
+I changed the configuration to point to jenkinsfilev2 and reran the build. 
 
 ### Console Output
 I ran the commands in the ‘Clean’ stage and found that the script searched the processes for gunicorn and if the PID was a number other than 0, meaning the process was active, then it killed the process. Plainly, it kills any running gunicorn processes. However, when I ran the command there was more than one gunicorn process, so this script would only rid of one using the head -n 1 command. Though, maybe killing one process, kills them all.
 
-The setup2.sh removed the previously cloned repository and cloned the repository with the new home.html changes. 
+The setup2.sh removed the previously cloned repository and cloned the repository with the new home.html changes. Then, the file ran a script that successfully deployed the application to the EC2 instance.
+
+<img width="1237" alt="Screen Shot 2023-10-14 at 1 47 15 AM" src="https://github.com/nalDaniels/Deployment5/assets/135375665/0aaba6d4-602d-4eac-b45e-5753fda88a72">
+
+
+## 6. Install CloudWatch and Create Alarms
+### Purpose:
+Monitoring the Jenkins server and retail banking application allows me to be aware of resource usage and determine whether or not I need to scale the infrastructure up or down. 
+
+For the Jenkins application, I created an alert to monitor CPU usage. I chose this metric because I've noticed that when running builds the CPU tends to go up. In order to ensure I am not under-provisioning the EC2 instance hosting Jenkins, I created an alarm for when the CPU goes beyond 70%.
+
+For the retail banking application, I created alerts for memory, CPU, storage, and network bandwidth if these measurements go over 60%. I chose these metrics for these reasons: on the EC2 instance we are running gunicorn and SQLite; we are reading and writing to the database. 
+
+# Resources:
+Find my system design for this deployment here:
