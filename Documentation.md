@@ -88,5 +88,8 @@ For the Jenkins application, I created an alert to monitor CPU usage. I chose th
 
 For the retail banking application, I created alerts for memory, CPU, storage, and network bandwidth if these measurements go over 60%. I chose these metrics for these reasons: on the EC2 instance we are running gunicorn and SQLite; we are reading and writing to the database. 
 
+### Reminder:
+Add the CloudWatch IAM role to the EC2 after installing CloudWatch.
+
 # Resources:
 Find my system design for this deployment here:
