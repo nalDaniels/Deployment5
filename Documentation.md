@@ -86,7 +86,7 @@ Monitoring the Jenkins server and retail banking application allows me to be awa
 
 For the Jenkins application, I created an alert to monitor CPU usage. I chose this metric because I've noticed that when running builds the CPU tends to go up. In order to ensure I am not under-provisioning the EC2 instance hosting Jenkins, I created an alarm for when the CPU goes beyond 70%.
 
-For the retail banking application, I created alerts for memory, CPU, storage, and network bandwidth if these measurements go over 60%. I chose these metrics for these reasons: on the EC2 instance we are running gunicorn and SQLite; we are reading and writing to the database. 
+For the retail banking application, I created alerts for memory, CPU, storage, and disk input/output time if these measurements go over 60%. I chose these metrics for these reasons: on the EC2 instance we are running gunicorn and SQLite; we are reading and writing to the database. 
 
 ### Reminder:
 Add the CloudWatch IAM role to the EC2 after installing CloudWatch.
