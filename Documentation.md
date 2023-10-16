@@ -94,6 +94,9 @@ Add the CloudWatch IAM role to the EC2 after installing CloudWatch.
 ### Alarm Output:
 After creating a customer and account in the application, the disk storage alarm was set off. This indicates that for this application we need an EC2 instance with more disk storage.
 
+<img width="936" alt="Screen Shot 2023-10-15 at 11 47 57 PM" src="https://github.com/nalDaniels/Deployment5/assets/135375665/f2490b2a-9066-4d3f-8030-23169bd13009">
+
+
 # Resources:
 Find my system design for this deployment here:
 https://github.com/nalDaniels/Deployment5/blob/main/SystemDesign.md
