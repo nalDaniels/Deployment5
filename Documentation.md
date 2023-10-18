@@ -1,7 +1,7 @@
 # Purpose:
 To learn how to use Terraform to create and configure infrastructure and use Jenkins to deploy application. Previously, we have been manually creating infrastructure using both the graphical user interface and the command line. Unfortunately, those practices do not permit reusability or sharability. Terraform allows us to make continuous updates to our infrastructure, share our files with other members of our team, and design a blueprint that has been tested for reuse. Additionally, with the use of a version control system, you are able to keep track of different versions and roll it back to the previous state if the new infrastructure does not work.
 
-After creating the infrastructure, I learned how to deploy a three-tier retail banking application onto an EC2 instance via a ssh tunnel using Jenkins. 
+After creating the infrastructure, I learned how to deploy a one-tier retail banking application onto an EC2 instance via a ssh tunnel using Jenkins. 
 
 # Steps to Deployment:
 ## 1. Use Terraform to Create Infrastructure
