@@ -38,11 +38,7 @@ I tested out commands in the terminal before adding it to the Jenkinsfilev1.
 I created a second branch and added this command to the Jenkinsfilev1
 #### ssh -T ubuntu@10.0.2.90 </var/lib/jenkins/workspace/Deployment5_main/setup.sh
 Then I,
-git add .
-git commit -m "Updated jenkinsfilev1"
-git switch main
-git merge second 
-git push to Github
+git add ., git commit -m "Updated jenkinsfilev1", git switch main, git merge second, and git push to Github
 
 ## 4. Create a Multibranch Pipeline and Run a Build
 I installed 'pipeline keep running' to keep the retail banking application deployed after the build. I routed the step looking for the jenkinsfile to jenkinsfilev1. we were able to sucessfully run the pipeline and deploy the retail banking application
@@ -64,11 +60,7 @@ In my second branch, I added ssh -T ubuntu@10.0.2.90 </var/lib/jenkins/workspace
 
 I also changed the header in the home.html file, updated the setup2.sh script to pointing to the correct repository with the updates, and added my terraform files.
 Then, I
-git add .
-git commit -m "Updated jenkinsfilev2 and added terraform files"
-git switch main
-git merge second
-git push
+git add ., git commit -m "Updated jenkinsfilev2 and added terraform files", git switch main, git merge second, and git push
 
 I changed the configuration to point to jenkinsfilev2 and reran the build. 
 
