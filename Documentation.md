@@ -44,7 +44,7 @@ git add ., git commit -m "Updated jenkinsfilev1", git switch main, git merge sec
 I installed 'pipeline keep running' to keep the retail banking application deployed after the build. I routed the step looking for the jenkinsfile to jenkinsfilev1. we were able to sucessfully run the pipeline and deploy the retail banking application
 
 ### Console Output:
-The ‘build’ stage is creating a virtual environmentJenkins used git to clone the repository and fetch the latest commits. The build stage created a virtual environment using python3, activated that test environment, installed python's package manager and all of the packages in the requirements.txt that are necessary for the application to run. The test stage activated the test environment, executed tests, and saved the results in test-reports/results.xml
+The build stage cloned the repository, created a virtual environment using python3, activated that test environment, installed python's package manager and all of the packages in the requirements.txt that are necessary for the application to run. The test stage activated the test environment, executed tests, and saved the results in test-reports/results.xml
 
 The deploy stage ssh'd into the second server and successfully deployed the retail application onto it. 
 <img width="1215" alt="Screen Shot 2023-10-14 at 1 15 54 AM" src="https://github.com/nalDaniels/Deployment5/assets/135375665/965d63b0-345f-4c4b-809e-1eebf19c8d10">
